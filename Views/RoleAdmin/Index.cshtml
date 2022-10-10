@@ -1,0 +1,50 @@
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<RoleEditModel>
+
+@{
+    ViewBag.Title = "Roles";
+}
+
+<h2>Index</h2>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Roles</div>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Users</th>
+            <th></th>
+        </tr>
+        @if (Model.Count() == 0)
+        { 
+            <tr>
+                <td colspan="4" class="text-center">No roles</td>
+            </tr>
+        }
+        else
+        {
+            foreach (RoleEditModel role in Model)
+            {  
+                <tr>
+                    <td>@role.Role.Id</td>
+                    <td>@role.Role.Name</td>
+                    <td>
+                        @if (role.RoleMembers == null || role.RoleMembers.Count() == 0)
+                        { 
+                            @: No Users in role
+                        }
+                        else
+                        { 
+                            <p>@string.Join(", ", role.RoleMembers.Select(x => x.Email))</p>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = role.Role.Id }, new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+@Html.ActionLink("Create", "Create", null, new { @class = "btn btn-primary" })

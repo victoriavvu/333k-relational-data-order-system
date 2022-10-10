@@ -1,0 +1,74 @@
+﻿@model Vu_Victoria_HW5.Models.Order
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrderNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderNotes)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrderNotes)
+        </dd>
+    </dl>
+</div>
+<h5>Products on this Order</h5>
+<table class="table table-primary">
+    <tr>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+    </tr>
+    @foreach (OrderDetail od in Model.OrderDetails)
+    {
+        <tr>
+            <td>@Html.DisplayFor(ModelItem => od.Product.ProductName)</td>
+            <td>@Html.DisplayFor(ModelItem => od.Price)</td>
+            <td>@Html.DisplayFor(ModelItem => od.OrderQuantity)</td>
+            <td>@Html.DisplayFor(ModelItem => od.ExtendedPrice)</td>
+        </tr>
+    }
+</table>
+
+<h5>Order Summary</h5>
+<table class="table table-sm table-bordered" style="width:30%">
+    <tr>
+        <th colspan="2" style="text-align:center">Order Summary</th>
+    </tr>
+    <tr>
+        <td>Order Subtotal:</td>
+        <td>@Html.DisplayFor(model => model.OrderSubtotal)</td>
+    </tr>
+    <tr>
+        <td>Sales Tax:</td>
+        <td>@Html.DisplayFor(model => model.SalesTax)</td>
+    </tr>
+    <tr>
+        <td>Order Total:</td>
+        <td>@Html.DisplayFor(model => model.OrderTotal)</td>
+    </tr>
+
+</table>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

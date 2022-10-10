@@ -1,0 +1,16 @@
+<h1>Welcome to Our Food Truck!</h1>
+<a asp-action="Index" asp-controller="Products" class="btn btn-success">View Our Products</a>
+
+@if (User.Identity.IsAuthenticated)
+{
+    @if (User.IsInRole("Customer"))
+    {
+        <a asp-controller="Orders" asp-action="Index" class="btn btn-info">View Orders</a>
+    }
+    @if (User.IsInRole("Admin"))
+    {
+            <a asp-controller="Orders" asp-action="Index" class="btn btn-info">View Orders</a>
+            <a asp-controller="Suppliers" asp-action="Index" class="btn btn-danger">View Suppliers</a>
+            <a asp-controller="RoleAdmin" asp-action="Index" class="btn btn-warning">Manage Users</a>
+    }
+}

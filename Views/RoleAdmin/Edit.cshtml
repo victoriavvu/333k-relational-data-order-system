@@ -1,0 +1,80 @@
+@model RoleEditModel
+@{
+    ViewBag.Title = "Edit Role";
+}
+
+<h2>Edit Role: @Model.Role.Name</h2>
+
+@Html.ValidationSummary()
+
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="roleName" value="@Model.Role.Name" />
+    <div class="panel panel-primary">
+        <div class="panel-heading">Add To @Model.Role.Name</div>
+        <table class="table table-striped">
+            @if (Model.RoleNonMembers.Count() == 0)
+            {
+                <tr>
+                    <td colspan="3">All Users Are Members</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Add to Role</th>
+                </tr>
+                foreach (AppUser user in Model.RoleNonMembers)
+                {
+                    <tr>
+                        <td>@user.FirstName</td>
+                        <td>@user.UserName</td>
+                        <td>
+                            <input type="checkbox" name="IdsToAdd" value="@user.Id" />
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Remove from @Model.Role.Name</div>
+        <table class="table table-striped">
+            @if (Model.RoleMembers.Count() == 0)
+            {
+                <tr>
+                    <td colspan="3">No Users Are Members</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Remove From Role</th>
+                </tr>
+                foreach (AppUser user in Model.RoleMembers)
+                {
+                    <tr>
+                        <td>@user.FirstName</td>
+                        <td>@user.UserName</td>
+                        <td>
+                            <input type="checkbox" name="IdsToDelete" value="@user.Id" />
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+
+    <button type="submit" class="btn btn-danger">Save</button>
+    <a asp-action="Index" class="btn btn-success">Cancel</a>
+}
+
+
+
+
+

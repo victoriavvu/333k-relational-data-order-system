@@ -1,0 +1,19 @@
+@using Microsoft.AspNetCore.Identity;
+@if (User.Identity.IsAuthenticated)
+{
+    <form asp-action="LogOff" asp-controller="Account" method="post" id="logoutForm" class="navbar-right")>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a asp-action="Index" asp-controller="Account" title="Manage" class="nav-link">Hello @User.Identity.Name!</a>
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()"><span class="nav-link">Log Off</span></a></li>
+        </ul>
+    </form>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a asp-action="Register" asp-controller="Account" id="registerLink" class="nav-link">Register</a></li>
+        <li><a asp-action="Login" asp-controller="Account" id="loginLink" class="nav-link">Log in</a></li>
+    </ul>
+}
